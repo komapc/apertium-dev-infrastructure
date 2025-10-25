@@ -153,8 +153,18 @@ ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@$PUBLIC_IP << ENDSSH
   if [ -f scripts/download_dumps.sh ]; then
     bash scripts/download_dumps.sh
     # Create symlink from data/raw to dumps for compatibility
-    if [ -d data/raw ] && [ ! -d dumps ]; then
+    echo "Creating symlink from data/raw to dumps..."
+    if [ -d data/raw ]; then
+      # Remove existing dumps directory if it exists
+      if [ -d dumps ]; then
+        rm -rf dumps
+      fi
+      # Create symlink
       ln -s data/raw dumps
+      echo "Symlink created: dumps -> data/raw"
+      ls -la dumps/ | head -5
+    else
+      echo "⚠ data/raw directory not found after download"
     fi
   else
     echo "⚠ Download script not found, trying manual download..."
