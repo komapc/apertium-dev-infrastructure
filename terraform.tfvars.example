@@ -1,0 +1,24 @@
+# Copy this file to terraform.tfvars and fill in your values
+# cp terraform.tfvars.example terraform.tfvars
+
+# AWS Configuration
+aws_region = "eu-west-1"
+
+# Project Configuration
+project_name = "ido-epo-translator"
+
+# Instance Configuration
+instance_type = "t3.small"  # t3.small recommended for extractor runs
+disk_size     = 20          # Minimum recommended
+
+# SSH Configuration
+# Find your IP: curl -s https://api.ipify.org
+ssh_ip               = "YOUR_IP_HERE/32"  # Replace with your public IP
+ssh_public_key_path  = "~/.ssh/id_rsa.pub"
+ssh_private_key_path = "~/.ssh/id_rsa"
+
+# Automation Configuration (optional)
+enable_automation = false  # Set to true to enable auto start/stop
+stop_schedule    = "cron(0 2 * * ? *)"  # Stop at 2 AM daily
+start_schedule   = "cron(0 8 * * ? *)"  # Start at 8 AM daily
+

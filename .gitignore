@@ -1,0 +1,17 @@
+# Terraform files
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# SSH keys (if stored locally)
+*.pem
+id_rsa
+id_rsa.pub
+
