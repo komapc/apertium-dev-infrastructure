@@ -1,6 +1,7 @@
 #!/bin/bash
 # Deploy Generated Dictionaries to Repositories
 # Usage: ./deploy_dictionaries.sh [results-dir]
+#        If no results-dir provided, uses latest extractor-results/*/
 
 set -e
 
@@ -27,6 +28,11 @@ if [ -z "$RESULTS_DIR" ] || [ ! -d "$RESULTS_DIR" ]; then
     echo "Usage: $0 [results-dir]"
     echo "Or ensure extractor-results/ contains a subdirectory"
     exit 1
+fi
+
+# Auto-detect latest if no specific directory provided
+if [ -z "$1" ]; then
+    echo -e "${BLUE}Auto-detected latest results: $RESULTS_DIR${NC}"
 fi
 
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
@@ -80,6 +86,85 @@ git clone https://github.com/komapc/apertium-ido.git "$TMP_DIR/apertium-ido" --d
 
 echo "Cloning apertium-ido-epo..."
 git clone https://github.com/komapc/apertium-ido-epo.git "$TMP_DIR/apertium-ido-epo" --depth 1
+
+# Show dictionary comparison
+echo ""
+echo "======================================"
+echo "Dictionary Comparison"
+echo "======================================"
+
+# Compare monolingual dictionary
+echo -e "${BLUE}Monolingual Dictionary (apertium-ido.ido.dix):${NC}"
+if [ -f "$TMP_DIR/apertium-ido/apertium-ido.ido.dix" ]; then
+    OLD_SIZE=$(grep -c "<e " "$TMP_DIR/apertium-ido/apertium-ido.ido.dix" 2>/dev/null || echo "0")
+    NEW_SIZE=$(grep -c "<e " "$RESULTS_DIR/apertium-ido.ido.dix" 2>/dev/null || echo "0")
+    
+    if [ "$OLD_SIZE" -gt 0 ] && [ "$NEW_SIZE" -gt 0 ]; then
+        DIFF=$((NEW_SIZE - OLD_SIZE))
+        PERCENT_CHANGE=$(awk "BEGIN {printf \"%.1f\", ($DIFF / $OLD_SIZE) * 100}")
+        
+        if [ "$DIFF" -gt 0 ]; then
+            echo -e "  Current: ${GREEN}$OLD_SIZE entries${NC}"
+            echo -e "  New:     ${GREEN}$NEW_SIZE entries${NC}"
+            echo -e "  Change:  ${GREEN}+$DIFF (+$PERCENT_CHANGE%)${NC}"
+        elif [ "$DIFF" -lt 0 ]; then
+            echo -e "  Current: ${YELLOW}$OLD_SIZE entries${NC}"
+            echo -e "  New:     ${RED}$NEW_SIZE entries${NC}"
+            echo -e "  Change:  ${RED}$DIFF ($PERCENT_CHANGE%)${NC}"
+            echo -e "  ${YELLOW}⚠️  Warning: Dictionary size decreased!${NC}"
+        else
+            echo -e "  Current: $OLD_SIZE entries"
+            echo -e "  New:     $NEW_SIZE entries"
+            echo -e "  Change:  No change"
+        fi
+    else
+        echo "  Unable to count entries"
+    fi
+else
+    echo "  No existing dictionary found"
+fi
+
+# Compare bilingual dictionary
+echo ""
+echo -e "${BLUE}Bilingual Dictionary (apertium-ido-epo.ido-epo.dix):${NC}"
+if [ -f "$TMP_DIR/apertium-ido-epo/apertium-ido-epo.ido-epo.dix" ]; then
+    OLD_SIZE=$(grep -c "<e " "$TMP_DIR/apertium-ido-epo/apertium-ido-epo.ido-epo.dix" 2>/dev/null || echo "0")
+    NEW_SIZE=$(grep -c "<e " "$RESULTS_DIR/apertium-ido-epo.ido-epo.dix" 2>/dev/null || echo "0")
+    
+    if [ "$OLD_SIZE" -gt 0 ] && [ "$NEW_SIZE" -gt 0 ]; then
+        DIFF=$((NEW_SIZE - OLD_SIZE))
+        PERCENT_CHANGE=$(awk "BEGIN {printf \"%.1f\", ($DIFF / $OLD_SIZE) * 100}")
+        
+        if [ "$DIFF" -gt 0 ]; then
+            echo -e "  Current: ${GREEN}$OLD_SIZE entries${NC}"
+            echo -e "  New:     ${GREEN}$NEW_SIZE entries${NC}"
+            echo -e "  Change:  ${GREEN}+$DIFF (+$PERCENT_CHANGE%)${NC}"
+        elif [ "$DIFF" -lt 0 ]; then
+            echo -e "  Current: ${YELLOW}$OLD_SIZE entries${NC}"
+            echo -e "  New:     ${RED}$NEW_SIZE entries${NC}"
+            echo -e "  Change:  ${RED}$DIFF ($PERCENT_CHANGE%)${NC}"
+            echo -e "  ${YELLOW}⚠️  Warning: Dictionary size decreased!${NC}"
+        else
+            echo -e "  Current: $OLD_SIZE entries"
+            echo -e "  New:     $NEW_SIZE entries"
+            echo -e "  Change:  No change"
+        fi
+    else
+        echo "  Unable to count entries"
+    fi
+else
+    echo "  No existing dictionary found"
+fi
+
+echo "======================================"
+echo ""
+read -p "Proceed with deployment? (y/N) " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Deployment cancelled."
+    exit 0
+fi
+echo ""
 
 # Deploy monolingual dictionary
 echo ""
