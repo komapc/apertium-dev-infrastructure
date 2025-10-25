@@ -60,6 +60,13 @@ if [ ! -f "$RESULTS_DIR/apertium-ido-epo.ido-epo.dix" ]; then
     exit 1
 fi
 
+if [ ! -f "$RESULTS_DIR/vortaro_dictionary.json" ]; then
+    echo -e "${RED}Error: vortaro_dictionary.json not found in $RESULTS_DIR${NC}"
+    echo "Available files:"
+    ls -lh "$RESULTS_DIR"
+    exit 1
+fi
+
 # Check GitHub CLI
 if ! command -v gh &> /dev/null; then
     echo -e "${RED}Error: GitHub CLI (gh) not installed${NC}"
@@ -86,6 +93,9 @@ git clone https://github.com/komapc/apertium-ido.git "$TMP_DIR/apertium-ido" --d
 
 echo "Cloning apertium-ido-epo..."
 git clone https://github.com/komapc/apertium-ido-epo.git "$TMP_DIR/apertium-ido-epo" --depth 1
+
+echo "Cloning vortaro..."
+git clone https://github.com/komapc/vortaro.git "$TMP_DIR/vortaro" --depth 1
 
 # Show dictionary comparison
 echo ""
@@ -167,6 +177,12 @@ show_comparison "Bilingual Dictionary (apertium-ido-epo.ido-epo.dix)" \
     "$TMP_DIR/apertium-ido-epo/apertium-ido-epo.ido-epo.dix" \
     "$RESULTS_DIR/apertium-ido-epo.ido-epo.dix" \
     "count_dix_entries"
+
+echo ""
+show_comparison "Vortaro Dictionary (dictionary.json)" \
+    "$TMP_DIR/vortaro/dictionary.json" \
+    "$RESULTS_DIR/vortaro_dictionary.json" \
+    "count_json_entries"
 
 # Compare JSON dictionaries if available
 echo ""
@@ -271,6 +287,38 @@ Results directory: $RESULTS_DIR" \
 
 echo -e "${GREEN}✅ Bilingual PR: $PR_URL${NC}"
 
+# Deploy vortaro dictionary
+echo ""
+echo -e "${BLUE}Deploying vortaro dictionary...${NC}"
+cd "$TMP_DIR/vortaro"
+
+# Copy dictionary
+cp "$SCRIPT_DIR/$RESULTS_DIR/vortaro_dictionary.json" dictionary.json
+
+# Create branch and commit
+git checkout -b "$BRANCH_NAME"
+git add dictionary.json
+git commit -m "feat: Update vortaro dictionary from extractor
+
+Generated: $(date '+%Y-%m-%d %H:%M:%S')
+Source: EC2 on-demand extractor run
+Results: $RESULTS_DIR"
+
+# Push and create PR
+echo "Pushing branch..."
+git push origin "$BRANCH_NAME"
+
+echo "Creating PR..."
+PR_URL=$(gh pr create --title "Update Vortaro Dictionary" \
+    --body "Auto-generated dictionary update from EC2 extractor run
+
+Generated: $(date '+%Y-%m-%d %H:%M:%S')
+Source: EC2 on-demand extractor run
+Results directory: $RESULTS_DIR" \
+    --repo komapc/vortaro)
+
+echo -e "${GREEN}✅ Vortaro PR: $PR_URL${NC}"
+
 # Summary
 echo ""
 echo "======================================"
@@ -279,6 +327,7 @@ echo "======================================"
 echo "PRs created in:"
 echo "  - komapc/apertium-ido"
 echo "  - komapc/apertium-ido-epo"
+echo "  - komapc/vortaro"
 echo ""
 echo "Next steps:"
 echo "  1. Review PRs on GitHub"
