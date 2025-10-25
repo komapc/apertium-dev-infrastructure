@@ -123,9 +123,9 @@ ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@$PUBLIC_IP << ENDSSH
     sudo apt-get install -y git >/dev/null
   fi
   
-  # Install Python dependencies
-  echo "Installing Python dependencies..."
-  sudo apt-get install -y python3 python3-pip python3-venv >/dev/null
+  # Install dependencies
+  echo "Installing dependencies..."
+  sudo apt-get install -y python3 python3-pip python3-venv wget >/dev/null
   
   # Create working directory
   cd /tmp
@@ -139,10 +139,25 @@ ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@$PUBLIC_IP << ENDSSH
   echo "EXTRACTOR_DIR: $EXTRACTOR_DIR"
   git clone --depth 1 $GITHUB_REPO . 2>&1 | head -20
   
+  # Create dumps directory (extractor expects dumps/ subdirectory)
+  mkdir -p dumps
+  
   # Install Python dependencies
   echo "Installing Python dependencies..."
   if [ -f requirements.txt ]; then
     pip3 install --user -r requirements.txt >/dev/null 2>&1
+  fi
+  
+  # Download dumps to dumps/ directory
+  echo "Downloading dumps..."
+  if [ -f scripts/00_download_dumps.sh ]; then
+    bash scripts/00_download_dumps.sh
+  else
+    echo "⚠ Download script not found, trying manual download..."
+    # Download dumps manually if script doesn't exist
+    wget -q -O dumps/iowiki-latest-langlinks.sql.gz "https://dumps.wikimedia.org/iowiki/latest/iowiki-latest-langlinks.sql.gz" || true
+    wget -q -O dumps/iowiki-latest-pages-articles.xml.bz2 "https://dumps.wikimedia.org/iowiki/latest/iowiki-latest-pages-articles.xml.bz2" || true
+    wget -q -O dumps/iowiktionary-latest-pages-articles.xml.bz2 "https://dumps.wikimedia.org/iowiktionary/latest/iowiktionary-latest-pages-articles.xml.bz2" || true
   fi
   
   # Create results directory
