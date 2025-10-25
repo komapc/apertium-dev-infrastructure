@@ -149,22 +149,29 @@ ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@$PUBLIC_IP << ENDSSH
   echo "======================================"
   
   # Run the main script
-  if [ -f main.py ]; then
-    python3 main.py --output-dir /tmp/extractor-results 2>&1 || {
+  # Note: scripts are in scripts/ subdirectory in the repo
+  cd scripts
+  
+  if [ -f run.py ]; then
+    echo "Running scripts/run.py..."
+    python3 run.py 2>&1 || {
       echo "Extractor failed with exit code \$?"
       exit 1
     }
-  elif [ -f run_extractor.py ]; then
-    python3 run_extractor.py --output-dir /tmp/extractor-results 2>&1 || {
+  elif [ -f pipeline_manager.py ]; then
+    echo "Running scripts/pipeline_manager.py..."
+    python3 pipeline_manager.py 2>&1 || {
       echo "Extractor failed with exit code \$?"
       exit 1
     }
   else
-    echo "No main.py or run_extractor.py found!"
+    echo "No run.py or pipeline_manager.py found in scripts/"
     echo "Available files:"
     ls -la
     exit 1
   fi
+  
+  cd ..
   
   echo "======================================"
   echo "Extractor completed successfully"

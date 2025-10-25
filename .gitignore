@@ -15,3 +15,7 @@ override.tf.json
 id_rsa
 id_rsa.pub
 
+# Log files
+extractor-run-*.log
+*.log
+
