@@ -148,16 +148,22 @@ ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@$PUBLIC_IP << ENDSSH
     pip3 install --user -r requirements.txt >/dev/null 2>&1
   fi
   
-  # Download dumps to dumps/ directory
+  # Download dumps
   echo "Downloading dumps..."
-  if [ -f scripts/00_download_dumps.sh ]; then
-    bash scripts/00_download_dumps.sh
+  if [ -f scripts/download_dumps.sh ]; then
+    bash scripts/download_dumps.sh
+    # Create symlink from data/raw to dumps for compatibility
+    if [ -d data/raw ] && [ ! -d dumps ]; then
+      ln -s data/raw dumps
+    fi
   else
     echo "⚠ Download script not found, trying manual download..."
     # Download dumps manually if script doesn't exist
+    mkdir -p dumps
     wget -q -O dumps/iowiki-latest-langlinks.sql.gz "https://dumps.wikimedia.org/iowiki/latest/iowiki-latest-langlinks.sql.gz" || true
     wget -q -O dumps/iowiki-latest-pages-articles.xml.bz2 "https://dumps.wikimedia.org/iowiki/latest/iowiki-latest-pages-articles.xml.bz2" || true
     wget -q -O dumps/iowiktionary-latest-pages-articles.xml.bz2 "https://dumps.wikimedia.org/iowiktionary/latest/iowiktionary-latest-pages-articles.xml.bz2" || true
+    wget -q -O dumps/eowiktionary-latest-pages-articles.xml.bz2 "https://dumps.wikimedia.org/eowiktionary/latest/eowiktionary-latest-pages-articles.xml.bz2" || true
   fi
   
   # Create results directory
