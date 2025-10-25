@@ -19,3 +19,9 @@ id_rsa.pub
 extractor-run-*.log
 *.log
 
+# Auto-generated build files (shouldn't be committed)
+*.mk
+*.am
+*.in
+Makefile
+
