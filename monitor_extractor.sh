@@ -32,8 +32,26 @@ echo ""
 # Check if extractor process is running
 echo -e "${BLUE}Extractor Process:${NC}"
 if [ "$PUBLIC_IP" != "not-found" ]; then
-    ssh -i ~/.ssh/id_rsa -o ConnectTimeout=2 ubuntu@$PUBLIC_IP \
-        "ps aux | grep 'python3 run.py' | grep -v grep || echo 'Not running'" 2>/dev/null || echo "SSH failed"
+    # Check if instance exists and is accessible
+    INSTANCE_STATE=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" --region eu-west-1 \
+        --query 'Reservations[0].Instances[0].State.Name' --output text 2>/dev/null || echo "unknown")
+    
+    if [ "$INSTANCE_STATE" = "running" ]; then
+        PROCESS_OUTPUT=$(ssh -i ~/.ssh/id_rsa -o ConnectTimeout=2 ubuntu@$PUBLIC_IP \
+            "ps aux | grep 'python3 run.py' | grep -v grep" 2>/dev/null)
+        
+        if [ -n "$PROCESS_OUTPUT" ]; then
+            echo "✅ Running"
+        else
+            echo "⚠ Not running (instance is up but no extractor process)"
+        fi
+    elif [ "$INSTANCE_STATE" = "stopped" ]; then
+        echo "⚠ Instance stopped"
+    elif [ "$INSTANCE_STATE" = "terminated" ]; then
+        echo "❌ Instance terminated"
+    else
+        echo "⚠ Instance state: $INSTANCE_STATE"
+    fi
 else
     echo "Instance not available"
 fi
@@ -56,13 +74,26 @@ fi
 # Check file generation
 echo -e "${BLUE}Generated Files:${NC}"
 if [ "$PUBLIC_IP" != "not-found" ]; then
-    FILE_COUNT=$(ssh -i ~/.ssh/id_rsa ubuntu@$PUBLIC_IP \
-        "cd /tmp/ido-esperanto-extractor && find data sources -name '*.json' -type f 2>/dev/null | wc -l" 2>/dev/null || echo "0")
-    echo "JSON files created: $FILE_COUNT"
+    INSTANCE_STATE=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" --region eu-west-1 \
+        --query 'Reservations[0].Instances[0].State.Name' --output text 2>/dev/null || echo "unknown")
     
-    # Check for final outputs
-    ssh -i ~/.ssh/id_rsa ubuntu@$PUBLIC_IP \
-        "cd /tmp/ido-esperanto-extractor && ls -lh dictionary*.json apertium*.dix 2>/dev/null | head -5" 2>/dev/null || echo "No outputs yet"
+    if [ "$INSTANCE_STATE" = "running" ]; then
+        FILE_COUNT=$(ssh -i ~/.ssh/id_rsa ubuntu@$PUBLIC_IP \
+            "cd /tmp/ido-esperanto-extractor && find data sources -name '*.json' -type f 2>/dev/null | wc -l" 2>/dev/null || echo "0")
+        echo "JSON files created: $FILE_COUNT"
+        
+        # Check for final outputs
+        OUTPUTS=$(ssh -i ~/.ssh/id_rsa ubuntu@$PUBLIC_IP \
+            "cd /tmp/ido-esperanto-extractor && ls -lh dictionary*.json apertium*.dix 2>/dev/null | head -5" 2>/dev/null)
+        
+        if [ -n "$OUTPUTS" ]; then
+            echo "$OUTPUTS"
+        else
+            echo "No outputs yet"
+        fi
+    else
+        echo "Instance $INSTANCE_STATE - cannot check files"
+    fi
 else
     echo "Cannot check - instance not available"
 fi

@@ -27,8 +27,11 @@ TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 RESULTS_DIR="extractor-results/$TIMESTAMP"
 LOG_FILE="extractor-run-$TIMESTAMP.log"
 
-# GitHub repository (adjust if needed)
+# Configuration (can be overridden via environment variables)
 GITHUB_REPO="${GITHUB_REPO:-https://github.com/komapc/ido-esperanto-extractor.git}"
+EXTRACTOR_DIR="${EXTRACTOR_DIR:-ido-esperanto-extractor}"
+ENTRY_POINT="${ENTRY_POINT:-scripts/run.py}"
+RESULTS_DIR_INSTANCE="${RESULTS_DIR_INSTANCE:-/tmp/extractor-results}"
 
 # Function to log messages
 log() {
@@ -132,6 +135,8 @@ ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@$PUBLIC_IP << ENDSSH
   
   # Clone repository
   echo "Cloning repository..."
+  echo "GITHUB_REPO: $GITHUB_REPO"
+  echo "EXTRACTOR_DIR: $EXTRACTOR_DIR"
   git clone --depth 1 $GITHUB_REPO . 2>&1 | head -20
   
   # Install Python dependencies
@@ -141,47 +146,54 @@ ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@$PUBLIC_IP << ENDSSH
   fi
   
   # Create results directory
-  mkdir -p /tmp/extractor-results
+  mkdir -p $RESULTS_DIR_INSTANCE
   
   # Run extractor
   echo "======================================"
   echo "Running extractor..."
   echo "======================================"
+  echo "Entry point: $ENTRY_POINT"
   
-  # Run the main script
-  # Note: scripts are in scripts/ subdirectory in the repo
-  cd scripts
-  
-  if [ -f run.py ]; then
-    echo "Running scripts/run.py..."
+  # Detect and run entry point
+  if [ -f "scripts/run.py" ]; then
+    echo "Found: scripts/run.py"
+    cd scripts
     python3 run.py 2>&1 || {
       echo "Extractor failed with exit code \$?"
       exit 1
     }
-  elif [ -f pipeline_manager.py ]; then
-    echo "Running scripts/pipeline_manager.py..."
+    cd ..
+  elif [ -f "scripts/pipeline_manager.py" ]; then
+    echo "Found: scripts/pipeline_manager.py"
+    cd scripts
     python3 pipeline_manager.py 2>&1 || {
       echo "Extractor failed with exit code \$?"
       exit 1
     }
+    cd ..
+  elif [ -f "main.py" ]; then
+    echo "Found: main.py"
+    python3 main.py 2>&1 || {
+      echo "Extractor failed with exit code \$?"
+      exit 1
+    }
   else
-    echo "No run.py or pipeline_manager.py found in scripts/"
+    echo "⚠ No recognized entry point found!"
+    echo "Looked for: scripts/run.py, scripts/pipeline_manager.py, main.py"
     echo "Available files:"
     ls -la
     exit 1
   fi
-  
-  cd ..
   
   echo "======================================"
   echo "Extractor completed successfully"
   echo "======================================"
   
   # Show results
-  if [ -d /tmp/extractor-results ]; then
+  if [ -d $RESULTS_DIR_INSTANCE ]; then
     echo "Results:"
-    ls -lh /tmp/extractor-results/
-    du -sh /tmp/extractor-results/
+    ls -lh $RESULTS_DIR_INSTANCE/
+    du -sh $RESULTS_DIR_INSTANCE/
   fi
 ENDSSH
 
@@ -198,7 +210,7 @@ log_success "Extractor completed"
 log "Copying results to local machine..."
 mkdir -p "$RESULTS_DIR"
 
-if scp -i ~/.ssh/id_rsa -r ubuntu@$PUBLIC_IP:/tmp/extractor-results/* "$RESULTS_DIR/" 2>/dev/null; then
+if scp -i ~/.ssh/id_rsa -r ubuntu@$PUBLIC_IP:$RESULTS_DIR_INSTANCE/* "$RESULTS_DIR/" 2>/dev/null; then
     log_success "Results copied to $RESULTS_DIR"
 else
     log_warning "Could not copy results (might be empty or permission issue)"
