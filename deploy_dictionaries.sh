@@ -93,43 +93,36 @@ echo "======================================"
 echo "Dictionary Comparison"
 echo "======================================"
 
-# Compare monolingual dictionary
-echo -e "${BLUE}Monolingual Dictionary (apertium-ido.ido.dix):${NC}"
-if [ -f "$TMP_DIR/apertium-ido/apertium-ido.ido.dix" ]; then
-    OLD_SIZE=$(grep -c "<e " "$TMP_DIR/apertium-ido/apertium-ido.ido.dix" 2>/dev/null || echo "0")
-    NEW_SIZE=$(grep -c "<e " "$RESULTS_DIR/apertium-ido.ido.dix" 2>/dev/null || echo "0")
-    
-    if [ "$OLD_SIZE" -gt 0 ] && [ "$NEW_SIZE" -gt 0 ]; then
-        DIFF=$((NEW_SIZE - OLD_SIZE))
-        PERCENT_CHANGE=$(awk "BEGIN {printf \"%.1f\", ($DIFF / $OLD_SIZE) * 100}")
-        
-        if [ "$DIFF" -gt 0 ]; then
-            echo -e "  Current: ${GREEN}$OLD_SIZE entries${NC}"
-            echo -e "  New:     ${GREEN}$NEW_SIZE entries${NC}"
-            echo -e "  Change:  ${GREEN}+$DIFF (+$PERCENT_CHANGE%)${NC}"
-        elif [ "$DIFF" -lt 0 ]; then
-            echo -e "  Current: ${YELLOW}$OLD_SIZE entries${NC}"
-            echo -e "  New:     ${RED}$NEW_SIZE entries${NC}"
-            echo -e "  Change:  ${RED}$DIFF ($PERCENT_CHANGE%)${NC}"
-            echo -e "  ${YELLOW}⚠️  Warning: Dictionary size decreased!${NC}"
-        else
-            echo -e "  Current: $OLD_SIZE entries"
-            echo -e "  New:     $NEW_SIZE entries"
-            echo -e "  Change:  No change"
-        fi
+# Function to count entries in .dix file
+count_dix_entries() {
+    local file="$1"
+    if [ -f "$file" ]; then
+        grep -c "<e " "$file" 2>/dev/null || echo "0"
     else
-        echo "  Unable to count entries"
+        echo "0"
     fi
-else
-    echo "  No existing dictionary found"
-fi
+}
 
-# Compare bilingual dictionary
-echo ""
-echo -e "${BLUE}Bilingual Dictionary (apertium-ido-epo.ido-epo.dix):${NC}"
-if [ -f "$TMP_DIR/apertium-ido-epo/apertium-ido-epo.ido-epo.dix" ]; then
-    OLD_SIZE=$(grep -c "<e " "$TMP_DIR/apertium-ido-epo/apertium-ido-epo.ido-epo.dix" 2>/dev/null || echo "0")
-    NEW_SIZE=$(grep -c "<e " "$RESULTS_DIR/apertium-ido-epo.ido-epo.dix" 2>/dev/null || echo "0")
+# Function to count entries in JSON file
+count_json_entries() {
+    local file="$1"
+    if [ -f "$file" ]; then
+        python3 -c "import json; print(len(json.load(open('$file'))))" 2>/dev/null || echo "0"
+    else
+        echo "0"
+    fi
+}
+
+# Function to show comparison
+show_comparison() {
+    local name="$1"
+    local old_file="$2"
+    local new_file="$3"
+    local count_func="$4"
+    
+    echo -e "${BLUE}$name:${NC}"
+    OLD_SIZE=$($count_func "$old_file")
+    NEW_SIZE=$($count_func "$new_file")
     
     if [ "$OLD_SIZE" -gt 0 ] && [ "$NEW_SIZE" -gt 0 ]; then
         DIFF=$((NEW_SIZE - OLD_SIZE))
@@ -149,11 +142,59 @@ if [ -f "$TMP_DIR/apertium-ido-epo/apertium-ido-epo.ido-epo.dix" ]; then
             echo -e "  New:     $NEW_SIZE entries"
             echo -e "  Change:  No change"
         fi
+    elif [ "$OLD_SIZE" -eq 0 ] && [ "$NEW_SIZE" -gt 0 ]; then
+        echo -e "  Current: No existing dictionary"
+        echo -e "  New:     ${GREEN}$NEW_SIZE entries${NC}"
+        echo -e "  Change:  ${GREEN}+$NEW_SIZE (new)${NC}"
+    elif [ "$OLD_SIZE" -gt 0 ] && [ "$NEW_SIZE" -eq 0 ]; then
+        echo -e "  Current: ${YELLOW}$OLD_SIZE entries${NC}"
+        echo -e "  New:     No dictionary found"
+        echo -e "  Change:  ${RED}-$OLD_SIZE (lost)${NC}"
+        echo -e "  ${YELLOW}⚠️  Warning: Dictionary missing!${NC}"
     else
         echo "  Unable to count entries"
     fi
-else
-    echo "  No existing dictionary found"
+}
+
+# Compare Apertium dictionaries
+show_comparison "Monolingual Dictionary (apertium-ido.ido.dix)" \
+    "$TMP_DIR/apertium-ido/apertium-ido.ido.dix" \
+    "$RESULTS_DIR/apertium-ido.ido.dix" \
+    "count_dix_entries"
+
+echo ""
+show_comparison "Bilingual Dictionary (apertium-ido-epo.ido-epo.dix)" \
+    "$TMP_DIR/apertium-ido-epo/apertium-ido-epo.ido-epo.dix" \
+    "$RESULTS_DIR/apertium-ido-epo.ido-epo.dix" \
+    "count_dix_entries"
+
+# Compare JSON dictionaries if available
+echo ""
+echo "======================================"
+echo "Source Analysis (JSON dictionaries)"
+echo "======================================"
+
+# Check for JSON files in results
+if [ -d "$RESULTS_DIR" ]; then
+    echo "Available artifacts in results:"
+    ls -lh "$RESULTS_DIR" | grep -E "\.(json|dix)$" | head -10
+    
+    # Compare specific JSON files if they exist
+    if [ -f "$RESULTS_DIR/ido_dictionary.json" ]; then
+        echo ""
+        show_comparison "Ido Monolingual JSON" \
+            "$TMP_DIR/apertium-ido/ido_dictionary.json" \
+            "$RESULTS_DIR/ido_dictionary.json" \
+            "count_json_entries"
+    fi
+    
+    if [ -f "$RESULTS_DIR/bidix_big.json" ]; then
+        echo ""
+        show_comparison "Bilingual JSON" \
+            "$TMP_DIR/apertium-ido-epo/bidix_big.json" \
+            "$RESULTS_DIR/bidix_big.json" \
+            "count_json_entries"
+    fi
 fi
 
 echo "======================================"
