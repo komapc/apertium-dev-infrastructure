@@ -123,7 +123,7 @@ Generated Files: Instance stopped - cannot check files
 ### ✅ What Was Done
 
 1. **Created infrastructure:** EC2 + S3 for on-demand extractor runs
-2. **Created repository:** https://github.com/komapc/apertium-dev-infrastructure
+2. **Created repository:** https://github.com/komapc/apertium-terraform
 3. **Improved scripts:** Added configuration, better error handling
 4. **Documented coupling:** Clear explanation of dependencies
 5. **Fixed monitor:** Handles terminated instances gracefully
@@ -149,7 +149,7 @@ Generated Files: Instance stopped - cannot check files
 
 ## Repository Links
 
-- **Infrastructure:** https://github.com/komapc/apertium-dev-infrastructure
+- **Infrastructure:** https://github.com/komapc/apertium-terraform
 - **Extractor:** https://github.com/komapc/ido-esperanto-extractor
 - **Translator:** https://github.com/komapc/ido-epo-translator
 

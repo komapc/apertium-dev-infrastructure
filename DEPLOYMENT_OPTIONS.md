@@ -9,7 +9,7 @@
 
 ## Option 1: New Dedicated Repository (RECOMMENDED)
 
-**Repository Name:** `apertium-dev-infrastructure` or `ido-epo-infrastructure`
+**Repository Name:** `apertium-terraform` or `ido-epo-infrastructure`
 
 **Pros:**
 - ✅ Clean separation of concerns
@@ -24,7 +24,7 @@
 **Setup:**
 ```bash
 cd terraform
-git remote add origin https://github.com/komapc/apertium-dev-infrastructure.git
+git remote add origin https://github.com/komapc/apertium-terraform.git
 git push -u origin master
 ```
 
@@ -80,7 +80,7 @@ git commit -m "feat: Add AWS EC2 on-demand infrastructure"
 
 ## Recommendation
 
-**Create a new repository:** `apertium-dev-infrastructure`
+**Create a new repository:** `apertium-terraform`
 
 **Reasoning:**
 1. Infrastructure code is different from application code
@@ -97,11 +97,11 @@ git commit -m "feat: Add AWS EC2 on-demand infrastructure"
 
 ```bash
 # Using GitHub CLI
-gh repo create apertium-dev-infrastructure --public --description "Infrastructure as Code for Ido-Esperanto projects"
+gh repo create apertium-terraform --public --description "Infrastructure as Code for Ido-Esperanto projects"
 
 # Or manually:
 # Go to https://github.com/new
-# Name: apertium-dev-infrastructure
+# Name: apertium-terraform
 # Description: AWS EC2 infrastructure for on-demand extractor runs
 # Public
 # Click "Create repository"
@@ -113,7 +113,7 @@ gh repo create apertium-dev-infrastructure --public --description "Infrastructur
 cd /home/mark/apertium-dev/terraform
 
 # Add remote
-git remote add origin https://github.com/komapc/apertium-dev-infrastructure.git
+git remote add origin https://github.com/komapc/apertium-terraform.git
 
 # Push
 git push -u origin master
@@ -144,7 +144,7 @@ Update the main project README:
 
 AWS EC2 infrastructure for on-demand extractor runs:
 
-- Repository: [apertium-dev-infrastructure](https://github.com/komapc/apertium-dev-infrastructure)
+- Repository: [apertium-terraform](https://github.com/komapc/apertium-terraform)
 - Usage: See terraform/USAGE_EXTRACTOR.md
 - Cost: ~$0.02-0.04 per run, ~$2/month storage
 ```

@@ -67,6 +67,15 @@ resource "aws_security_group" "apy_server" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Webhook server for dictionary rebuilds
+  ingress {
+    description = "Webhook server for dictionary updates"
+    from_port   = 8081
+    to_port     = 8081
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Outbound internet access
   egress {
     description = "Outbound internet access"
