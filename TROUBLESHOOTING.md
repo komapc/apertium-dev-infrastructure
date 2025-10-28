@@ -67,7 +67,7 @@ fi
 **Current Coupling:**
 
 ```
-apertium-dev-infrastructure
+apertium-terraform
     ↓ (hardcoded dependency)
 ido-esperanto-extractor
     ↓ (GitHub URL, directory structure, entry point)

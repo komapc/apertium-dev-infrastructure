@@ -3,9 +3,9 @@
 ## Current Setup
 
 ### Repository Created
-**`apertium-dev-infrastructure`** - AWS EC2 on-demand infrastructure for running extractor
+**`apertium-terraform`** - AWS EC2 on-demand infrastructure for running extractor
 
-**URL:** https://github.com/komapc/apertium-dev-infrastructure
+**URL:** https://github.com/komapc/apertium-terraform
 
 ---
 
@@ -87,11 +87,13 @@ RESULTS_DIR="${RESULTS_DIR:-/tmp/extractor-results}"
 ### Extractor (ido-esperanto-extractor)
 **Current:** ✅ Uses this infrastructure  
 **Coupling:** Tight (hardcoded paths)  
-**Should:** Loosen coupling with environment variables
+**Should:** Loosen coupling with environment variables  
+**Critical Issue:** ❌ Morphological rules not integrated - creates incomplete dictionaries
 
 ### Translator (ido-epo-translator)
 **Current:** ❌ Does NOT use this infrastructure  
 **Uses:** Cloudflare Workers + separate EC2 (APy server)  
+**Docker:** ✅ APy server containerized (`projects/translator/apy-server/`)  
 **Coupling:** None (different use case)
 
 **Why Different:**
@@ -101,24 +103,30 @@ RESULTS_DIR="${RESULTS_DIR:-/tmp/extractor-results}"
 
 ### Vortaro (Dictionary Viewer)
 **Current:** ❌ Does NOT use this infrastructure  
-**Uses:** Static hosting (no backend)  
-**Coupling:** None (client-side only)
+**Uses:** Static hosting (GitHub Pages)  
+**Coupling:** None (client-side only)  
+**Data Source:** Receives `vortaro_dictionary.json` from extractor
 
 ---
 
 ## Infrastructure Summary
 
-| Project | Infrastructure | Purpose | Status |
-|---------|---------------|---------|--------|
-| **Extractor** | EC2 on-demand (this repo) | Run batch extraction | ✅ Configured |
-| **Translator** | Cloudflare Workers + EC2 APy | Serve translation API | ⚠️ Different EC2 |
-| **Vortaro** | Static hosting | View dictionary | ✅ No backend |
+| Project | Infrastructure | Purpose | Docker | Status |
+|---------|---------------|---------|--------|--------|
+| **Extractor** | EC2 on-demand (this repo) | Run batch extraction | ❌ No | ⚠️ Critical issues |
+| **Translator** | Cloudflare Workers + EC2 APy | Serve translation API | ✅ APy server | ✅ Working |
+| **Vortaro** | GitHub Pages | View dictionary | ❌ Static | ✅ Working |
+
+### Critical Issues Identified (Oct 26, 2025)
+- ❌ **Extractor:** Morphological rules not integrated, creates incomplete dictionaries
+- ❌ **Extractor:** Dictionary data corruption with metadata markers
+- ⚠️ **Missing:** Docker support for extractor pipeline
 
 ---
 
 ## Recommendations
 
-### For This Repository (apertium-dev-infrastructure)
+### For This Repository (apertium-terraform)
 
 **Short-term improvements:**
 1. ✅ Add environment variables for configuration

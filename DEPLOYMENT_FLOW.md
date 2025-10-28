@@ -16,7 +16,9 @@
 │  │  ├─ Merge dictionaries                                 │  │
 │  │  └─ Export Apertium files                              │  │
 │  │     ├─ apertium-ido.ido.dix (monolingual)             │  │
+│  │     │   ❌ INCOMPLETE (missing morphological rules)    │  │
 │  │     └─ apertium-ido-epo.ido-epo.dix (bilingual)       │  │
+│  │         ❌ CORRUPTED (contains metadata markers)       │  │
 │  └─────────────────────────────────────────────────────┘  │
 │         │                                                   │
 │         ▼                                                   │
@@ -67,8 +69,17 @@
 ```
 Extractor Output:
 ├── apertium-ido.ido.dix          → apertium-ido repo
-└── apertium-ido-epo.ido-epo.dix  → apertium-ido-epo repo
+│   ❌ INCOMPLETE (missing morphological rules from rules/apertium-ido.ido.dix.rules)
+├── apertium-ido-epo.ido-epo.dix  → apertium-ido-epo repo  
+│   ❌ CORRUPTED (contains {wikt_io}, Kategorio:* metadata)
+└── vortaro_dictionary.json       → vortaro repo
+    ✅ WORKING (web dictionary format)
 ```
+
+### Critical Issues (Oct 26, 2025)
+- **Morphological Rules:** Stored in `projects/extractor/rules/` but not integrated
+- **Data Corruption:** Export script doesn't clean metadata markers
+- **Translation Impact:** Poor quality due to incomplete dictionaries
 
 ## Timing
 

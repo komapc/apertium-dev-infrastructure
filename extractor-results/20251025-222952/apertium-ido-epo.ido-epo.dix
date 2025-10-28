@@ -1,0 +1,1644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+  <alphabet>abcdefghijklmnopqrstuvwxyzĉĝĥĵŝŭABCDEFGHIJKLMNOPQRSTUVWXYZĈĜĤĴŜŬ</alphabet>
+  <sdefs>
+    <sdef n="n" />
+    <sdef n="adj" />
+    <sdef n="adv" />
+    <sdef n="vblex" />
+    <sdef n="pr" />
+    <sdef n="prn" />
+    <sdef n="det" />
+    <sdef n="num" />
+    <sdef n="cnjcoo" />
+    <sdef n="cnjsub" />
+    <sdef n="ij" />
+    <sdef n="sg" />
+    <sdef n="pl" />
+    <sdef n="sp" />
+    <sdef n="nom" />
+    <sdef n="acc" />
+    <sdef n="inf" />
+    <sdef n="pri" />
+    <sdef n="pii" />
+    <sdef n="fti" />
+    <sdef n="cni" />
+    <sdef n="imp" />
+    <sdef n="p1" />
+    <sdef n="p2" />
+    <sdef n="p3" />
+    <sdef n="ciph" />
+  </sdefs>
+  <section id="main" type="standard">
+    <e>
+      <p>
+        <l>acero<s n="n" />
+        </l>
+        <r>acero<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>adjektivo<s n="n" />
+        </l>
+        <r>adjektivo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Afrika<s n="n" />
+        </l>
+        <r>Afriko<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>aglo<s n="n" />
+        </l>
+        <r>aglo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>agosto<s n="n" />
+        </l>
+        <r>aŭgusto<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>akushisto<s n="n" />
+        </l>
+        <r>akuŝisto<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>akuta<s n="adj" />
+        </l>
+        <r>akra<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Aljer<s n="n" />
+        </l>
+        <r>Alĝero<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Aljeria<s n="n" />
+        </l>
+        <r>Alĝerio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Aljeriana<s n="adj" />
+        </l>
+        <r>Alĝerio<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Andora<s n="adj" />
+        </l>
+        <r>Andoro<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Angola<s n="adj" />
+        </l>
+        <r>Angolo<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>arab</l>
+        <r>araba</r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Arjentinia<s n="n" />
+        </l>
+        <r>Argentino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Arjentiniana<s n="adj" />
+        </l>
+        <r>Argentino<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>asno<s n="n" />
+        </l>
+        <r>azeno<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Australia<s n="n" />
+        </l>
+        <r>Aŭstralio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Australiana<s n="adj" />
+        </l>
+        <r>Aŭstralio<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Austria<s n="n" />
+        </l>
+        <r>Aŭstrujo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Austria-Hungaria<s n="n" />
+        </l>
+        <r>Aŭstrio-Hungario<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Austria-Hungariana<s n="adj" />
+        </l>
+        <r>Aŭstrio-Hungario<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Austriana<s n="adj" />
+        </l>
+        <r>Aŭstrujo<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Azia<s n="n" />
+        </l>
+        <r>Azio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Aziana<s n="adj" />
+        </l>
+        <r>Azio<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>balalaiko<s n="n" />
+        </l>
+        <r>balalajko<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Bangladesh<s n="n" />
+        </l>
+        <r>Bangladeŝo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>bear<s n="vblex" />
+        </l>
+        <r>gapi<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Belgia<s n="n" />
+        </l>
+        <r>Belgio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Belgiana<s n="adj" />
+        </l>
+        <r>Belgio<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Berlin<s n="n" />
+        </l>
+        <r>Berlino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Bolivia<s n="n" />
+        </l>
+        <r>Bolivio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Boliviana<s n="adj" />
+        </l>
+        <r>Bolivio<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Brazilia<s n="n" />
+        </l>
+        <r>Brazilo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Braziliana<s n="adj" />
+        </l>
+        <r>Brazilo<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>bubo<s n="n" />
+        </l>
+        <r>bubo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Burma<s n="adj" />
+        </l>
+        <r>Birmo<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Butan<s n="n" />
+        </l>
+        <r>Butano<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Chipro<s n="n" />
+        </l>
+        <r>Kipro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>cienco<s n="n" />
+        </l>
+        <r>scienco<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>cirkoncizar<s n="vblex" />
+        </l>
+        <r>cirkumcidi<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>damzelo<s n="n" />
+        </l>
+        <r>fraŭlino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Danubio<s n="n" />
+        </l>
+        <r>Danubo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>deklinometro<s n="n" />
+        </l>
+        <r>deklinometro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>delirar<s n="vblex" />
+        </l>
+        <r>deliri<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>diamanto<s n="n" />
+        </l>
+        <r>diamanto<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>dicionario<s n="n" />
+        </l>
+        <r>vortaro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>dio<s n="n" />
+        </l>
+        <r>tago<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Dominika<s n="adj" />
+        </l>
+        <r>Dominiko<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Dominika Republiko<s n="n" />
+        </l>
+        <r>Domingo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>domo<s n="n" />
+        </l>
+        <r>domo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>duesma<s n="adj" />
+        </l>
+        <r>dua<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Egiptia<s n="n" />
+        </l>
+        <r>Egiptio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Egiptiana<s n="adj" />
+        </l>
+        <r>Egiptio<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>eklipso<s n="n" />
+        </l>
+        <r>eklipso<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>el</l>
+        <r>ŝi</r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Equador<s n="n" />
+        </l>
+        <r>Ekvadoro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>esar<s n="vblex" />
+        </l>
+        <r>esti<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Esperanto<s n="n" />
+        </l>
+        <r>Esperanto<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Europa<s n="adj" />
+        </l>
+        <r>Eŭropo<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>fekifar<s n="vblex" />
+        </l>
+        <r>feki<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>felacar<s n="vblex" />
+        </l>
+        <r>midzi<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>femina<s n="adj" />
+        </l>
+        <r>femala<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>ferio<s n="n" />
+        </l>
+        <r>foiro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>filiino<s n="n" />
+        </l>
+        <r>filino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>filio<s n="n" />
+        </l>
+        <r>filo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Filipini<s n="n" />
+        </l>
+        <r>Filipinoj<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>filiulo<s n="n" />
+        </l>
+        <r>filo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>filo<s n="n" />
+        </l>
+        <r>fadeno<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Finlando<s n="n" />
+        </l>
+        <r>Finnlando<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>frato<s n="n" />
+        </l>
+        <r>frato<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>fregato<s n="n" />
+        </l>
+        <r>fregato<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>frigorizilo<s n="n" />
+        </l>
+        <r>fridujo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>frigorizivo<s n="n" />
+        </l>
+        <r>fridujo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Gabon<s n="n" />
+        </l>
+        <r>Gabono<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>galaxio<s n="n" />
+        </l>
+        <r>galaksio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>galio<s n="n" />
+        </l>
+        <r>galiumo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Germania<s n="n" />
+        </l>
+        <r>Germanlando<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Germaniana<s n="adj" />
+        </l>
+        <r>Germanlando<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>heliopauzo<s n="n" />
+        </l>
+        <r>heliopaŭzo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>heliosfero<s n="n" />
+        </l>
+        <r>heliosfero<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>heterosexuala<s n="adj" />
+        </l>
+        <r>aliseksema<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>heterosexualino<s n="n" />
+        </l>
+        <r>aliseksamulino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>heterosexualo<s n="n" />
+        </l>
+        <r>malgejo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>homeosexuala<s n="adj" />
+        </l>
+        <r>samseksema<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>homeosexualino<s n="n" />
+        </l>
+        <r>samseksemulino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>homeosexualo<s n="n" />
+        </l>
+        <r>samseksemulo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>hordeo<s n="n" />
+        </l>
+        <r>hordeo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>hundo<s n="n" />
+        </l>
+        <r>hundo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>hundyuno<s n="n" />
+        </l>
+        <r>hundido<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>idisto<s n="n" />
+        </l>
+        <r>idisto<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>iodo<s n="n" />
+        </l>
+        <r>jodo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>ipsa<s n="adj" />
+        </l>
+        <r>mem<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Italia<s n="n" />
+        </l>
+        <r>Italio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Italiana<s n="adj" />
+        </l>
+        <r>Italio<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>januaro<s n="n" />
+        </l>
+        <r>januaro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>jemelo<s n="n" />
+        </l>
+        <r>ĝemelo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>jovdio<s n="n" />
+        </l>
+        <r>ĵaŭdo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>kad</l>
+        <r>ĉu</r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>kamelo<s n="n" />
+        </l>
+        <r>kamelo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>kanon-batelo<s n="n" />
+        </l>
+        <r>kanonboato<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>kapo<s n="n" />
+        </l>
+        <r>ĉefo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>karasino<s n="n" />
+        </l>
+        <r>karaso<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>kin<s n="num" />
+        </l>
+        <r>kvin<s n="num" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>konkurso<s n="n" />
+        </l>
+        <r>konkurso<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>konspiro<s n="n" />
+        </l>
+        <r>konspiro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>kromosomo<s n="n" />
+        </l>
+        <r>kromosomo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>kulo<s n="n" />
+        </l>
+        <r>pugo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>kustumala<s n="adj" />
+        </l>
+        <r>kutima<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>lando<s n="n" />
+        </l>
+        <r>lando<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>lavomashino<s n="n" />
+        </l>
+        <r>lavmaŝino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>le<s n="adv" />
+        </l>
+        <r>la<s n="adv" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>lego<s n="n" />
+        </l>
+        <r>leĝo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>li<s n="prn" />
+        </l>
+        <r>ili<s n="prn" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Libana<s n="adj" />
+        </l>
+        <r>Libano<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Libano<s n="n" />
+        </l>
+        <r>Libano<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>ligar<s n="vblex" />
+        </l>
+        <r>ligi<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>linguo<s n="n" />
+        </l>
+        <r>lingvo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>lu<s n="prn" />
+        </l>
+        <r>ĝi<s n="prn" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>luno<s n="n" />
+        </l>
+        <r>luno<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Madrid<s n="n" />
+        </l>
+        <r>Madrido<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>manjajo<s n="n" />
+        </l>
+        <r>manĝaĵo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>manuo<s n="n" />
+        </l>
+        <r>mano<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>maskula<s n="adj" />
+        </l>
+        <r>maskla<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>materio<s n="n" />
+        </l>
+        <r>materialo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>matriochka<s n="adj" />
+        </l>
+        <r>matrjoŝko<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>matro<s n="n" />
+        </l>
+        <r>patrino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>me<s n="prn" />
+        </l>
+        <r>mi<s n="prn" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>mem</l>
+        <r>ja</r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>merkovorto<s n="n" />
+        </l>
+        <r>kapvorto<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>mideo<s n="n" />
+        </l>
+        <r>duondio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>monato<s n="n" />
+        </l>
+        <r>monato<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>mopso<s n="n" />
+        </l>
+        <r>mopso<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>muelilo<s n="n" />
+        </l>
+        <r>muelejo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>muelodisko<s n="n" />
+        </l>
+        <r>muelŝtono<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>muelopetro<s n="n" />
+        </l>
+        <r>muelŝtono<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>musketiero<s n="n" />
+        </l>
+        <r>muskedisto<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Nederlando<s n="n" />
+        </l>
+        <r>Nederlando<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>nonesma<s n="adj" />
+        </l>
+        <r>naŭa<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>novembro<s n="n" />
+        </l>
+        <r>novembro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>nultempe<s n="adv" />
+        </l>
+        <r>neniam<s n="adv" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>od</l>
+        <r>aŭ</r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>odiar<s n="vblex" />
+        </l>
+        <r>malami<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>ol<s n="prn" />
+        </l>
+        <r>ĝi<s n="prn" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>olu</l>
+        <r>ĝi</r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>omna<s n="det" />
+        </l>
+        <r>ĉia<s n="det" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>omnu</l>
+        <r>ĉiu</r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>papagayo<s n="n" />
+        </l>
+        <r>papago<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>patria<s n="n" />
+        </l>
+        <r>patrujo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>patriana<s n="adj" />
+        </l>
+        <r>patrujo<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>patro<s n="n" />
+        </l>
+        <r>patro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>pinyino<s n="n" />
+        </l>
+        <r>pinjino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>po<s n="n" />
+        </l>
+        <r>je<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>poplo<s n="n" />
+        </l>
+        <r>poplo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>posto<s n="n" />
+        </l>
+        <r>poŝto<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>prepuco<s n="n" />
+        </l>
+        <r>prepucio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>prima<s n="adj" />
+        </l>
+        <r>komenca<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>pro quo<s n="n" />
+        </l>
+        <r>kial<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Prusia<s n="n" />
+        </l>
+        <r>Prusio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Prusiana<s n="adj" />
+        </l>
+        <r>Prusio<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>pulsar<s n="vblex" />
+        </l>
+        <r>puŝi<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>putanino<s n="n" />
+        </l>
+        <r>putino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>qua<s n="adj" />
+        </l>
+        <r>kiu<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>quar<s n="vblex" />
+        </l>
+        <r>kvar<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>quaresma<s n="adj" />
+        </l>
+        <r>kvara<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>qui</l>
+        <r>kioj</r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>quin</l>
+        <r>kiojn</r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>quo<s n="n" />
+        </l>
+        <r>kio<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>quon</l>
+        <r>kion</r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>reda<s n="adj" />
+        </l>
+        <r>ruĝa<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>rejo<s n="n" />
+        </l>
+        <r>reĝo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>respondo<s n="n" />
+        </l>
+        <r>respondo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>reumatismo<s n="n" />
+        </l>
+        <r>reŭmatismo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>rezumar<s n="vblex" />
+        </l>
+        <r>resumi<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>rinocero<s n="n" />
+        </l>
+        <r>rinocero<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>ronronar<s n="vblex" />
+        </l>
+        <r>ronroni<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Rusia<s n="n" />
+        </l>
+        <r>Ruslando<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>Rusiana<s n="adj" />
+        </l>
+        <r>Ruslando<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>sharko<s n="n" />
+        </l>
+        <r>ŝarko<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>shuo<s n="n" />
+        </l>
+        <r>ŝuo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>singular<s n="vblex" />
+        </l>
+        <r>singularo<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>smeraldo<s n="n" />
+        </l>
+        <r>smeraldo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>societo<s n="n" />
+        </l>
+        <r>societo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>spozino<s n="n" />
+        </l>
+        <r>edzino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>spozulo<s n="n" />
+        </l>
+        <r>edzo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>strucho<s n="n" />
+        </l>
+        <r>struto<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>submersonavo<s n="n" />
+        </l>
+        <r>submarŝipo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>sundio<s n="n" />
+        </l>
+        <r>dimanĉo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>ta<s n="adj" />
+        </l>
+        <r>tio<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>tigrino<s n="n" />
+        </l>
+        <r>tigro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>tigro<s n="n" />
+        </l>
+        <r>tigro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>tigrulo<s n="n" />
+        </l>
+        <r>tigro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>triesma<s n="adj" />
+        </l>
+        <r>tria<s n="adj" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>tu<s n="prn" />
+        </l>
+        <r>vi<s n="prn" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>turo<s n="vblex" />
+        </l>
+        <r>administri<s n="vblex" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>ucelo<s n="n" />
+        </l>
+        <r>birdo<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>ulo<s n="n" />
+        </l>
+        <r>io<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>un<s n="det" />
+        </l>
+        <r>unu<s n="det" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>vesto-lavilo<s n="n" />
+        </l>
+        <r>lavmaŝino<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>vi<s n="prn" />
+        </l>
+        <r>vi<s n="prn" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>vice<s n="adv" />
+        </l>
+        <r>anstataŭ<s n="adv" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>vorto<s n="n" />
+        </l>
+        <r>vorto<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>vortolibro<s n="n" />
+        </l>
+        <r>vortaro<s n="n" />
+        </r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>vu</l>
+        <r>vi</r>
+      </p>
+    </e>
+    <e>
+      <p>
+        <l>zero<s n="n" />
+        </l>
+        <r>nul<s n="n" />
+        </r>
+      </p>
+    </e>
+  </section>
+</dictionary>
