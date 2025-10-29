@@ -30,7 +30,7 @@ variable "instance_type" {
 variable "disk_size" {
   description = "Root disk size in GB"
   type        = number
-  default     = 20
+  default     = 30
 
   validation {
     condition     = var.disk_size >= 20
