@@ -30,8 +30,9 @@ LOG_FILE="extractor-run-$TIMESTAMP.log"
 # Configuration (can be overridden via environment variables)
 GITHUB_REPO="${GITHUB_REPO:-https://github.com/komapc/ido-esperanto-extractor.git}"
 EXTRACTOR_DIR="${EXTRACTOR_DIR:-ido-esperanto-extractor}"
-ENTRY_POINT="${ENTRY_POINT:-scripts/run.py}"
-RESULTS_DIR_INSTANCE="${RESULTS_DIR_INSTANCE:-/tmp/extractor-results}"
+EXTRACTOR_BRANCH="${EXTRACTOR_BRANCH:-fix/extractor-script-references}"
+ENTRY_POINT="${ENTRY_POINT:-regenerate-on-ec2.sh}"
+RESULTS_DIR_INSTANCE="${RESULTS_DIR_INSTANCE:-~/ido-esperanto-extractor/dist}"
 
 # Function to log messages
 log() {
@@ -127,17 +128,23 @@ ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@$PUBLIC_IP << ENDSSH
   echo "Installing dependencies..."
   sudo apt-get install -y python3 python3-pip python3-venv wget >/dev/null
   
-  # Create working directory
-  cd /tmp
-  rm -rf ido-esperanto-extractor
-  mkdir -p ido-esperanto-extractor
-  cd ido-esperanto-extractor
+  # Use persistent directory in home
+  cd ~
   
-  # Clone repository
-  echo "Cloning repository..."
-  echo "GITHUB_REPO: $GITHUB_REPO"
-  echo "EXTRACTOR_DIR: $EXTRACTOR_DIR"
-  git clone --depth 1 $GITHUB_REPO . 2>&1 | head -20
+  # Clone or update repository
+  if [ -d "ido-esperanto-extractor" ]; then
+    echo "Updating existing repository..."
+    cd ido-esperanto-extractor
+    git fetch origin
+    git checkout $EXTRACTOR_BRANCH
+    git pull origin $EXTRACTOR_BRANCH
+  else
+    echo "Cloning repository..."
+    echo "GITHUB_REPO: $GITHUB_REPO"
+    echo "BRANCH: $EXTRACTOR_BRANCH"
+    git clone --depth 1 --branch $EXTRACTOR_BRANCH $GITHUB_REPO ido-esperanto-extractor 2>&1 | head -20
+    cd ido-esperanto-extractor
+  fi
   
   # Create dumps directory (extractor expects dumps/ subdirectory)
   mkdir -p dumps
@@ -185,32 +192,23 @@ ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@$PUBLIC_IP << ENDSSH
   echo "======================================"
   echo "Entry point: $ENTRY_POINT"
   
-  # Detect and run entry point
-  if [ -f "scripts/run.py" ]; then
-    echo "Found: scripts/run.py"
-    cd scripts
-    python3 run.py 2>&1 || {
+  # Run the regeneration script
+  if [ -f "$ENTRY_POINT" ]; then
+    echo "Found: $ENTRY_POINT"
+    chmod +x $ENTRY_POINT
+    ./$ENTRY_POINT 2>&1 || {
       echo "Extractor failed with exit code \$?"
       exit 1
     }
-    cd ..
   elif [ -f "scripts/pipeline_manager.py" ]; then
-    echo "Found: scripts/pipeline_manager.py"
-    cd scripts
-    python3 pipeline_manager.py 2>&1 || {
-      echo "Extractor failed with exit code \$?"
-      exit 1
-    }
-    cd ..
-  elif [ -f "main.py" ]; then
-    echo "Found: main.py"
-    python3 main.py 2>&1 || {
+    echo "Using pipeline manager..."
+    python3 scripts/pipeline_manager.py 2>&1 || {
       echo "Extractor failed with exit code \$?"
       exit 1
     }
   else
-    echo "⚠ No recognized entry point found!"
-    echo "Looked for: scripts/run.py, scripts/pipeline_manager.py, main.py"
+    echo "⚠ No entry point found!"
+    echo "Looked for: $ENTRY_POINT, scripts/pipeline_manager.py"
     echo "Available files:"
     ls -la
     exit 1
@@ -221,10 +219,19 @@ ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@$PUBLIC_IP << ENDSSH
   echo "======================================"
   
   # Show results
-  if [ -d $RESULTS_DIR_INSTANCE ]; then
-    echo "Results:"
-    ls -lh $RESULTS_DIR_INSTANCE/
-    du -sh $RESULTS_DIR_INSTANCE/
+  echo "Results:"
+  ls -lh dist/ 2>/dev/null || echo "No dist directory"
+  ls -lh reports/ 2>/dev/null || echo "No reports directory"
+  
+  # Show statistics
+  if [ -f "dist/ido_dictionary.json" ]; then
+    IDO_COUNT=\$(python3 -c "import json; print(len(json.load(open('dist/ido_dictionary.json'))))" 2>/dev/null || echo "unknown")
+    echo "Ido dictionary: \$IDO_COUNT entries"
+  fi
+  
+  if [ -f "dist/bidix_big.json" ]; then
+    BIDIX_COUNT=\$(python3 -c "import json; print(len(json.load(open('dist/bidix_big.json'))))" 2>/dev/null || echo "unknown")
+    echo "Bilingual dictionary: \$BIDIX_COUNT entries"
   fi
 ENDSSH
 
@@ -241,15 +248,21 @@ log_success "Extractor completed"
 log "Copying results to local machine..."
 mkdir -p "$RESULTS_DIR"
 
-if scp -i ~/.ssh/id_rsa -r ubuntu@$PUBLIC_IP:$RESULTS_DIR_INSTANCE/* "$RESULTS_DIR/" 2>/dev/null; then
+# Copy dist files
+if scp -i ~/.ssh/id_rsa -r ubuntu@$PUBLIC_IP:~/ido-esperanto-extractor/dist/* "$RESULTS_DIR/" 2>/dev/null; then
     log_success "Results copied to $RESULTS_DIR"
 else
     log_warning "Could not copy results (might be empty or permission issue)"
 fi
 
+# Copy reports
+log "Copying reports..."
+mkdir -p "$RESULTS_DIR/reports"
+scp -i ~/.ssh/id_rsa -r ubuntu@$PUBLIC_IP:~/ido-esperanto-extractor/reports/* "$RESULTS_DIR/reports/" 2>/dev/null || true
+
 # Copy logs
 log "Copying logs..."
-scp -i ~/.ssh/id_rsa ubuntu@$PUBLIC_IP:/tmp/ido-esperanto-extractor/*.log "$RESULTS_DIR/" 2>/dev/null || true
+scp -i ~/.ssh/id_rsa ubuntu@$PUBLIC_IP:~/ido-esperanto-extractor/logs/*.log "$RESULTS_DIR/" 2>/dev/null || true
 
 # Upload to S3 (if bucket exists)
 if [ -n "$S3_BUCKET" ]; then
