@@ -5,7 +5,7 @@
 ```bash
 cd terraform
 terraform apply -target=null_resource.expand_root_volume
-ssh -i ~/.ssh/apertium.pem ubuntu@52.211.137.158
+ssh -i ~/.ssh/id_rsa ubuntu@54.220.110.151
 sudo growpart /dev/nvme0n1 1 && sudo resize2fs /dev/nvme0n1p1 && df -h
 ```
 
@@ -35,7 +35,7 @@ cd terraform
 ## SSH Access
 
 ```bash
-ssh -i ~/.ssh/apertium.pem ubuntu@52.211.137.158
+ssh -i ~/.ssh/id_rsa ubuntu@54.220.110.151
 ```
 
 ## Check Results
@@ -45,7 +45,7 @@ ssh -i ~/.ssh/apertium.pem ubuntu@52.211.137.158
 ls -lh terraform/extractor-results/*/
 
 # On EC2
-ssh -i ~/.ssh/apertium.pem ubuntu@52.211.137.158
+ssh -i ~/.ssh/id_rsa ubuntu@54.220.110.151
 cd ~/ido-esperanto-extractor
 ls -lh dist/
 cat reports/stats_summary.md
@@ -55,7 +55,7 @@ cat reports/stats_summary.md
 
 ```bash
 # On EC2
-ssh -i ~/.ssh/apertium.pem ubuntu@52.211.137.158
+ssh -i ~/.ssh/id_rsa ubuntu@54.220.110.151
 cd ~/ido-esperanto-extractor
 
 # Check entry counts
@@ -67,7 +67,7 @@ python3 -c "import json; v=json.load(open('dist/vortaro_dictionary.json')); prin
 ## Clean Up Space
 
 ```bash
-ssh -i ~/.ssh/apertium.pem ubuntu@52.211.137.158
+ssh -i ~/.ssh/id_rsa ubuntu@54.220.110.151
 cd ~/ido-esperanto-extractor
 rm -rf work/*.json data/raw/*.xml.bz2
 df -h

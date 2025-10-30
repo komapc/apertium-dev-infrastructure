@@ -8,11 +8,13 @@ We use **ONE EC2 instance** for both:
 
 ## Instance Details
 
-- **IP**: 52.211.137.158
+- **IP**: 54.220.110.151 (Elastic IP - stable)
 - **Type**: t3.small (2 vCPU, 2GB RAM)
 - **Disk**: 20GB (expandable)
 - **Region**: eu-west-1 (Ireland)
 - **Managed by**: Terraform (`terraform/main.tf`)
+
+**Note:** IP address is managed by Elastic IP and should remain stable. If changed, update this document.
 
 ## Setup Steps
 
@@ -26,7 +28,7 @@ terraform init
 terraform apply -target=null_resource.expand_root_volume
 
 # SSH to instance
-ssh -i ~/.ssh/apertium.pem ubuntu@52.211.137.158
+ssh -i ~/.ssh/id_rsa ubuntu@54.220.110.151
 
 # Expand filesystem
 sudo growpart /dev/nvme0n1 1
@@ -145,7 +147,7 @@ aws_region    = "eu-west-1"
 ./start_stop.sh start
 
 # APy server runs automatically
-# Access at: http://52.211.137.158:2737
+# Access at: http://54.220.110.151:2737
 ```
 
 ### Dictionary Regeneration
@@ -164,7 +166,7 @@ aws_region    = "eu-west-1"
 
 ### Disk Full
 ```bash
-ssh -i ~/.ssh/apertium.pem ubuntu@52.211.137.158
+ssh -i ~/.ssh/id_rsa ubuntu@54.220.110.151
 
 # Check space
 df -h
@@ -181,7 +183,7 @@ rm -rf data/raw/*.xml.bz2
 cat terraform/extractor-run-*.log
 
 # Or on EC2
-ssh -i ~/.ssh/apertium.pem ubuntu@52.211.137.158
+ssh -i ~/.ssh/id_rsa ubuntu@54.220.110.151
 cd ~/ido-esperanto-extractor
 tail -100 logs/regeneration_*.log
 ```
@@ -192,7 +194,7 @@ cd terraform
 terraform apply -target=null_resource.expand_root_volume
 
 # Then SSH and expand filesystem
-ssh -i ~/.ssh/apertium.pem ubuntu@52.211.137.158
+ssh -i ~/.ssh/id_rsa ubuntu@54.220.110.151
 sudo growpart /dev/nvme0n1 1
 sudo resize2fs /dev/nvme0n1p1
 ```
@@ -201,7 +203,7 @@ sudo resize2fs /dev/nvme0n1p1
 
 ```bash
 # Direct SSH
-ssh -i ~/.ssh/apertium.pem ubuntu@52.211.137.158
+ssh -i ~/.ssh/id_rsa ubuntu@54.220.110.151
 
 # Or from terraform
 cd terraform
