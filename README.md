@@ -19,7 +19,7 @@ cp terraform.tfvars.example terraform.tfvars
 ```
 
 Edit `terraform.tfvars`:
-- Set `ssh_ip` to your public IP (use `curl -s https://api.ipify.org`)
+- Set `ssh_ip` to your public IP (use `curl -4 -s ifconfig.me`)
 - Adjust other variables as needed
 
 ### 2. Get Your SSH Public Key
@@ -52,28 +52,58 @@ terraform apply
 
 Type `yes` when prompted.
 
-### 6. Connect to Instance
+### 6. Setup SSH Config (Optional but Recommended)
+
+Add to `~/.ssh/config` for easy connection:
+
+```ssh-config
+Host ido-extractor
+    HostName <PUBLIC_IP>
+    User ubuntu
+    IdentityFile ~/.ssh/id_rsa
+    ServerAliveInterval 60
+```
+
+Then connect with: `ssh ido-extractor`
+
+### 7. Connect to Instance
 
 After applying, Terraform will output the SSH command:
 
 ```bash
 ssh -i ~/.ssh/id_rsa ubuntu@<PUBLIC_IP>
+# Or if you set up SSH config:
+ssh ido-extractor
 ```
 
 ## Architecture
 
+### Single Instance - Dual Purpose
+
+This EC2 instance serves **two purposes**:
+
+1. **APy Translation Server** (always running) - Port 2737
+2. **Dictionary Extractor** (on-demand) - Batch process
+
+**Path Separation:**
+- Translator: `/opt/ido-epo-translator/` (Docker)
+- Extractor: `~/ido-esperanto-extractor/` (Python)
+
+No conflicts - completely isolated.
+
 ### Resources Created
 
 - **EC2 Instance**: t3.small Ubuntu 22.04 LTS
-- **Security Group**: Ports 22 (SSH), 80 (HTTP), 2737 (APy)
+- **Security Group**: Ports 22 (SSH), 80 (HTTP), 2737 (APy), 8081 (Webhook)
 - **Elastic IP**: Stable public IP address
 - **Key Pair**: SSH access
+- **S3 Bucket**: Extractor results backup (optional)
 
 ### Instance Configuration
 
 - **Type**: t3.small (2 vCPU, 2GB RAM)
 - **OS**: Ubuntu 22.04 LTS
-- **Disk**: 20GB gp3 SSD (encrypted)
+- **Disk**: 20GB gp3 SSD (encrypted, expandable)
 - **Docker**: Pre-installed
 - **User**: ubuntu (sudo access)
 
@@ -214,6 +244,28 @@ terraform destroy
 
 **Warning**: This will delete all resources. Make sure you have backups!
 
+## Dictionary Extractor
+
+The same instance can run the dictionary extractor on-demand:
+
+```bash
+# Run extractor (auto-starts instance, runs extraction, copies results, stops instance)
+./run_extractor.sh
+
+# Monitor progress
+./monitor_extractor.sh
+
+# Deploy results to GitHub
+./deploy_dictionaries.sh
+```
+
+**Working Directory:** `~/ido-esperanto-extractor/`  
+**Results:** Copied to `extractor-results/TIMESTAMP/`  
+**Runtime:** ~1-2 hours  
+**Cost:** ~$0.02-0.04 per run
+
+See `SINGLE_INSTANCE_SETUP.md` for detailed extractor documentation.
+
 ## Troubleshooting
 
 ### Instance Won't Start
@@ -228,7 +280,14 @@ aws ec2 get-console-output --instance-id <INSTANCE_ID>
 
 ### Can't SSH
 
-1. Check security group allows your IP
+1. **Check your IP changed:**
+   ```bash
+   MY_IP=$(curl -4 -s ifconfig.me)
+   aws ec2 authorize-security-group-ingress \
+     --group-id <SECURITY_GROUP_ID> \
+     --protocol tcp --port 22 --cidr $MY_IP/32
+   ```
+
 2. Verify key pair is correct
 3. Check instance is running
 4. Try: `ssh -v -i <key> ubuntu@<IP>`
@@ -239,6 +298,12 @@ aws ec2 get-console-output --instance-id <INSTANCE_ID>
 2. Check Docker: `docker ps`
 3. Check logs: `docker logs apy-server`
 4. Check port: `netstat -tlnp | grep 2737`
+
+### Extractor Fails
+
+1. Check logs: `cat extractor-run-*.log`
+2. Or on EC2: `ssh ido-extractor 'tail -50 ~/ido-esperanto-extractor/logs/*.log'`
+3. Resume from failed stage: `python3 scripts/pipeline_manager.py --stage <stage-name>`
 
 ## Outputs
 

@@ -79,12 +79,12 @@ if [ "$PUBLIC_IP" != "not-found" ]; then
     
     if [ "$INSTANCE_STATE" = "running" ]; then
         FILE_COUNT=$(ssh -i ~/.ssh/id_rsa ubuntu@$PUBLIC_IP \
-            "cd /tmp/ido-esperanto-extractor && find data sources -name '*.json' -type f 2>/dev/null | wc -l" 2>/dev/null || echo "0")
+            "cd ~/ido-esperanto-extractor && find data sources -name '*.json' -type f 2>/dev/null | wc -l" 2>/dev/null || echo "0")
         echo "JSON files created: $FILE_COUNT"
         
         # Check for final outputs
         OUTPUTS=$(ssh -i ~/.ssh/id_rsa ubuntu@$PUBLIC_IP \
-            "cd /tmp/ido-esperanto-extractor && ls -lh dictionary*.json apertium*.dix 2>/dev/null | head -5" 2>/dev/null)
+            "cd ~/ido-esperanto-extractor && ls -lh dictionary*.json apertium*.dix 2>/dev/null | head -5" 2>/dev/null)
         
         if [ -n "$OUTPUTS" ]; then
             echo "$OUTPUTS"
