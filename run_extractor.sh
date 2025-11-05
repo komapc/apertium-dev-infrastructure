@@ -50,7 +50,7 @@ log_warning() {
     echo -e "${YELLOW}[$(date +'%Y-%m-%d %H:%M:%S')]⚠${NC} $1" | tee -a "$LOG_FILE"
 }
 
-# Trap to ensure instance stops even on error
+# Trap for cleanup (instance kept running)
 cleanup() {
     local exit_code=$?
     if [ $exit_code -ne 0 ]; then
@@ -58,17 +58,7 @@ cleanup() {
     fi
     
     log "Cleaning up..."
-    
-    # Stop instance if it's running
-    INSTANCE_STATE=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" \
-        --query 'Reservations[0].Instances[0].State.Name' --output text 2>/dev/null || echo "stopped")
-    
-    if [ "$INSTANCE_STATE" = "running" ]; then
-        log "Stopping instance..."
-        aws ec2 stop-instances --instance-ids "$INSTANCE_ID" >/dev/null 2>&1 || true
-        aws ec2 wait instance-stopped --instance-ids "$INSTANCE_ID" >/dev/null 2>&1 || true
-        log_success "Instance stopped"
-    fi
+    log_warning "Instance left running (not stopped automatically)"
     
     exit $exit_code
 }
@@ -263,11 +253,9 @@ else
     log_warning "S3 bucket not configured, skipping upload"
 fi
 
-# Stop instance
-log "Stopping instance..."
-aws ec2 stop-instances --instance-ids "$INSTANCE_ID" >/dev/null
-aws ec2 wait instance-stopped --instance-ids "$INSTANCE_ID" >/dev/null
-log_success "Instance stopped"
+# Keep instance running (not stopped)
+log_warning "Instance left running (not stopped automatically)"
+log "To stop manually: ./start_stop.sh stop"
 
 # Summary
 echo ""

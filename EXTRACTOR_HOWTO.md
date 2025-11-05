@@ -108,7 +108,7 @@ tail -f ~/ido-esperanto-extractor/logs/*.log
 
 ### Disk full?
 ```bash
-cd ~/apertium-dev/terraform
+cd ~/apertium-dev/projects/dev-scripts
 ./cleanup_ec2_extractor.sh
 ```
 
